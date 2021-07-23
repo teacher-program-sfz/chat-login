@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css?family=Righteous|Rubik&display=swap" rel="stylesheet">
+    <link href="{{style}}" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <div class="wrap_chat grid-container">
+        <div class="wrap_chat-header">
+            <div class="wrap_chat-header--user">
+                <figure class="wrap_chat-header--user___avatar">
+                    <img src="../chatassets/img/avatar/man_avatar3.jpg" alt="avatar" class="rounded-circle">
+
+                </figure>
+                <div class="wrap_chat-header--user___avatar_text profile_picture ">
+                    <h4 id="profilename"></h4>
+                </div>
+                <div class="wrap_chat-header--user___content">
+                    <h4 id="userchatname"></h4>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="wrap_chat-body" style="overflow-y: scroll; display: flex; flex-direction: column-reverse;"; >
+        <div class="messages">
+            <ul id="messages_socket"></ul>
+        </div>
+    </div>
+    <div class="chat-footer">
+        <div class="chat-footer--typing">
+            <form id="form" action="">
+                <input type="text" placeholder="Schreibe eine Nachricht..."id="input" autocomplete="off" />
+                <input type="image" src="../chatassets/icon/send.svg" class="btn" alt="send"/>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+
+    var messages = document.getElementById('messages_socket');
+    var userslist = document.getElementById('messages2_socket')
+    var userchatname = document.getElementById('userchatname');
+    var profilename = document.getElementById('profilename');
+    var names = document.getElementById('names-list');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input')
+
+    var names_from_main = "{{names}}";
+    var ids = "{{ids}}"
+
+    names_from_main = names_from_main.replace(' ', '_')
+
+    var names_from_main_list = names_from_main.split(",");
+    var ids_list = ids.split(",");
+
+
+    let params = new URLSearchParams(document.location.search.substring(1));
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+
+    function updateValue(e) {
+        if (searchinput.value) {
+            userslist.innerHTML = '';
+            for (var i = 0; i < names_from_main_list.length; i++) {
+                if (ids_list[i] != "{{urid}} " && names_from_main_list[i] != "{{urname}}") {
+                    var names_from_main_list_lower = names_from_main_list[i].toLowerCase();
+                    var searchinput_lower = searchinput.value.toLowerCase();
+                    if (names_from_main_list_lower.includes(searchinput_lower)) {
+
+                        var name = '<a href="/userchat?id=' + ids_list[i] + '">' + names_from_main_list[i] + '</a'
+                        var li = document.createElement('li');
+                        li.innerHTML = name;
+                        userslist.appendChild(li);
+                    }
+                }
+
+            }
+        }else if (searchinput.value == "") {
+            userslist.innerHTML = '';
+            for (var i = 0; i < names_from_main_list.length; i++) {
+                if (ids_list[i] != "{{urid}} " && names_from_main_list[i] != "{{urname}}") {
+
+                    var name = '<a href="/userchat?id=' + ids_list[i] + '">' + names_from_main_list[i] + '</a'
+                    var li = document.createElement('li');
+                    li.innerHTML = name;
+                    userslist.appendChild(li);
+                }
+            }
+        }
+    }
+
+    function codeAddress() {
+        for (var i = 0; i < {{savedmessages_size}}; i++) {
+            var savedmessages = "{{savedmessages}}"
+            var list =  savedmessages.split(',')
+            console.log(list)
+
+            if (list[i].startsWith('outgoing-message')) {
+                var listout = list[i];
+                listout = listout.substring(17)
+                var item = document.createElement('li');
+                item.textContent = listout;
+                item.classList = "outgoing-message";
+                messages.appendChild(item);
+            }
+            if (list[i].startsWith('ingoing-message')) {
+                var listin = list[i];
+                listin = listin.substring(16)
+                var item = document.createElement('li');
+                item.textContent = listin;
+                item.classList = "ingoing-message";
+                messages.appendChild(item);
+            }
+
+        }
+        usernamelist = "{{names}}".split(',');
+        userchatname.innerText = usernamelist[urlParams.get("id") - 1]
+        var lettersstring = usernamelist[urlParams.get("id") - 1];
+        profilename.innerText = lettersstring.substring(0,2);
+    }
+
+
+    form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (input.value) {
+                    socket.emit('chat message', {msg: input.value, getter: urlParams.get("id"), emitter: {{urid}} });
+
+
+                    var item = document.createElement('li');
+                    item.textContent = input.value;
+                    item.classList = "outgoing-message";
+                    messages.appendChild(item);
+                    window.scrollTo(0, document.body.scrollHeight);
+                    input.value = '';
+                }
+            }
+    );
+
+    window.addEventListener("beforeunload", function (e) {
+        var confirmationMessage = "\o/";
+        socket.emit('logout', params.get("username"));
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage;                            //Webkit, Safari, Chrome
+    });
+
+    socket.on('chat message', function(data) {
+        if (data.emitter == urlParams.get("id") && data.getter == {{urid}}) {
+            var msg = data.msg
+            var item = document.createElement('li');
+            item.textContent = msg;
+            item.classList = "ingoing-message";
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    });
+    window.onload = codeAddress;
+</script>
+
+</body>
+</html>

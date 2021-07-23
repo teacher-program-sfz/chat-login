@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+/* BASIC */
+html {
+    background-color: #282626;
+}
+.test {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+

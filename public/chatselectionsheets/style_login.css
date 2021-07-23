@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+    background-color: #292929;
+}
+nav {
+    background-color: #22777A;
+    color: white;
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+}
+nav ul {
+    background-color: #22777A;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+nav li {
+    background-color: #22777A;
+    list-style: none;
+
+}
+nav li a {
+    background-color: #22777A;
+    color: #FBFBFB;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 8px;
+}
+nav li a:hover {
+    background-color: #22777A;
+    color: #313131;
+    text-decoration: none;
+}
+nav h4 {
+    background-color: #22777A;
+
+}
+
+
+.ulbox {
+    margin-left: 38%;
+    text-align: center;
+}
+.ulbox li {
+    border-color: #111111;
+    border-style: solid;
+    margin-bottom: 5px;
+    border-radius: 7px;
+    padding: 1px;
+    width: 40%;
+    list-style-type: none;
+    text-align: center;
+}
+.ulbox li a {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 100%;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    margin: 20px 3px 20px 10px;
+    color: #FBFBFB;
+    text-decoration: none;
+}
+
+
+
+.Kontaktbox {
+    background-color: #22777A;
+}
+.Kontaktimg {
+    background-color: #22777A;
+    width: 33px;
+    position: absolute;
+    left: 23px;
+    top: 33px;
+}
+.wrap_sidebar-content input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 45%;
+    text-align: center;
+    height: auto;
+    border-radius: 5px;
+    border: 1px solid #3f3f44;
+    padding: 10px 15px;
+    background-color: #3f3f44;
+    color: #C5C8CC;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .wrap_sidebar-content input {
+        display: block;
+        margin : 0 auto;
+        text-align: center;
+        height: auto;
+        border-radius: 5px;
+        border: 1px solid #3f3f44;
+        padding: 10px 15px;
+        background-color: #3f3f44;
+        color: #C5C8CC;
+    }
+}

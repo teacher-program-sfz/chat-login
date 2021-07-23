@@ -1,0 +1,15 @@
+erster(eher nicht)    https://coolors.co/13293d-16324f-18435a-2a628f-3e92cc
+
+zweiter : https://coolors.co/0a0a03-0d0d06-333330-22777a-fbfbfb
+
+dritter: https://coolors.co/0a0a03-282626-333330-22777a-fbfbfb
+
+vierter: https://coolors.co/111111-282626-292929-22777a-fbfbfb
+
+alt font: <link href="https://fonts.googleapis.com/css?family=Righteous|Rubik&display=swap" rel="stylesheet">
+
+neu font: {
+  https://fonts.google.com/specimen/Montserrat#glyphs
+  css:
+    font-family: "Montserrat", sans-serif;
+}

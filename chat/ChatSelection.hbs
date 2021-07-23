@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Righteous|Rubik&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{style}}">
+</head>
+<body>
+
+<nav>
+    <h4 style= "font-family:'Rubik', cursive;">Kontakte</h4>
+    <ul>
+        <div class="Kontaktbox"><img class="Kontaktimg" src="chatselectionsheets/Kontakte.png"/></div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/profile">Profil</a></li>
+        <li><a href="/logout">Ausloggen</a></li>
+
+
+    </ul>
+</nav>
+
+<div class="wrap_sidebar-content">
+    <input type="text" placeholder="Chat suchen" id="searchchat"/>
+</div>
+<div class="ulboxmiddle">
+    <ul class="ulbox" id="messages2_socket"></ul>
+</div>
+
+<script>
+    var messages2 = document.getElementById('messages2_socket')
+    var names_from_main = "{{names}}";
+    var ids = "{{ids}}"
+    var userslist = document.getElementById('messages2_socket')
+    names_from_main = names_from_main.replace(' ', '_')
+
+    var names_from_main = "{{names}}";
+    var ids = "{{ids}}"
+
+    names_from_main = names_from_main.replace(' ', '_')
+
+    var names_from_main_list = names_from_main.split(",");
+    var ids_list = ids.split(",");
+
+
+    searchinput = document.getElementById('searchchat');
+    searchinput.addEventListener('input', updateValue);
+
+    function updateValue(e) {
+        if (searchinput.value) {
+            userslist.innerHTML = '';
+            for (var i = 0; i < names_from_main_list.length; i++) {
+                if (ids_list[i] != "{{urid}} " && names_from_main_list[i] != "{{urname}}") {
+                    var names_from_main_list_lower = names_from_main_list[i].toLowerCase();
+                    var searchinput_lower = searchinput.value.toLowerCase();
+                    if (names_from_main_list_lower.includes(searchinput_lower)) {
+
+                        var name = '<a href="/userchat?id=' + ids_list[i] + '">' + names_from_main_list[i] + '</a'
+                        var li = document.createElement('li');
+                        li.innerHTML = name;
+                        userslist.appendChild(li);
+                    }
+                }
+
+            }
+        }else if (searchinput.value == "") {
+            userslist.innerHTML = '';
+            for (var i = 0; i < names_from_main_list.length; i++) {
+                if (ids_list[i] != "{{urid}} " && names_from_main_list[i] != "{{urname}}") {
+
+                    var name = '<a href="/userchat?id=' + ids_list[i] + '">' + names_from_main_list[i] + '</a'
+                    var li = document.createElement('li');
+                    li.innerHTML = name;
+                    userslist.appendChild(li);
+                }
+            }
+        }
+    }
+    function codeAddress() {
+        document.getElementById('messages2_socket').innerHTML = "";
+        var item = document.createElement('li');
+        if (names_from_main_list.length == 1) {
+            var name = '<a>Es sieht so aus als ob es noch keine anderen User gibt ...</a'
+            var li = document.createElement('li');
+            li.innerHTML = name;
+            messages2.appendChild(li)
+        } else {
+            for (var i = 0; i < names_from_main_list.length; i++) {
+                if (ids_list[i] != "{{urid}} " && names_from_main_list[i] != "{{urname}}") {
+
+                    var name = '<a href="/userchat?id=' + ids_list[i] + '">' + names_from_main_list[i] + '</a'
+                    var li = document.createElement('li');
+                    li.innerHTML = name;
+                    messages2.appendChild(li);
+                }
+            }
+        }
+
+
+    }
+
+    window.onload = codeAddress;
+
+</script>
+
+
+</body>
+</html>
