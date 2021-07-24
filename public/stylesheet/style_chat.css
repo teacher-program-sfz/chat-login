@@ -259,3 +259,18 @@ font-family: 'Righteous', cursive;
     color: #FBFBFB;
     text-decoration: none;
 }
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #303035;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
