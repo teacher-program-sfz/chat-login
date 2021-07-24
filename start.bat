@@ -12,5 +12,5 @@ TIMEOUT /T 5
 tar -xf main.zip
 TIMEOUT /T 3
 
-cd main-main
+cd main2-main
 npm i mysql jwt-decode express socket.io dotenv cookie-parser jsonwebtoken bcryptjs
