@@ -42,32 +42,29 @@ nav h4 {
 }
 
 
-.ulbox {
-    margin-left: 38%;
-    text-align: center;
-}
 .ulbox li {
-    border-color: #111111;
-    border-style: solid;
-    margin-bottom: 5px;
-    border-radius: 7px;
-    padding: 1px;
-    width: 40%;
     list-style-type: none;
     text-align: center;
 }
 .ulbox li a {
-    vertical-align: middle;
-    text-align: center;
-    font-size: 100%;
-    font-weight: 600;
-    text-transform: uppercase;
-    display: inline-block;
-    margin: 20px 3px 20px 10px;
-    color: #FBFBFB;
+    border: 3px solid #3f3f44;
+    border-radius: 7px;
+    padding: 3% 18%;
     text-decoration: none;
+    color: #FBFBFB;
+    background-color: #3f3f44;
+    transition: border-color 0.6s ease 0s;
+    transition: background-color 0.6s ease 0s;
 }
-
+.ulbox li a:hover {
+    background-color: #22777A;
+    border-color: #22777A;
+}
+.ulboxmiddle {
+    margin: auto;
+    margin-top: 3.5%;
+    width: 60%;
+}
 
 
 .Kontaktbox {
@@ -80,10 +77,13 @@ nav h4 {
     left: 23px;
     top: 33px;
 }
+.wrap_sidebar-content {
+    margin: auto;
+    text-align: center;
+}
 .wrap_sidebar-content input {
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 45%;
     text-align: center;
     height: auto;
     border-radius: 5px;
